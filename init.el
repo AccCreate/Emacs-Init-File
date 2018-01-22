@@ -142,6 +142,7 @@
  '(eclim-executable "/home/paul/eclipse/java-oxygen/eclipse/eclim")
  '(eclimd-autostart-with-default-workspace t)
  '(eclimd-default-workspace "~/Documents/GitHub")
+ '(js2-strict-missing-semi-warning nil)
  '(notmuch-hello-sections
    (quote
     (notmuch-hello-insert-header notmuch-hello-insert-saved-searches notmuch-hello-insert-search notmuch-hello-insert-header notmuch-hello-insert-recent-searches notmuch-hello-insert-alltags notmuch-hello-insert-footer)))
@@ -153,6 +154,9 @@
 	    :sort-order newest-first))))
  '(notmuch-search-oldest-first nil)
  '(org-agenda-files (quote ("/home/paul/Documents/journal/journal.org")))
+ '(package-selected-packages
+   (quote
+    (hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -261,7 +265,7 @@
 
 "Vinegar like helm"
 (define-key evil-normal-state-map "-" 'helm-find-files)
-(define-key evil-normal-state-map "ESC" 'helm-keyboard-quit)
+;; (define-key evil-normal-state-map "<escape>" 'helm-keyboard-quit)
 (define-key evil-normal-state-map (kbd "S-<up>") 'evil-scroll-up)
 (define-key evil-normal-state-map (kbd "S-<down>") 'evil-scroll-down)
 
@@ -345,8 +349,8 @@
   (when (string="*Help*" (buffer-name))
     (kill-buffer "*Help*")
     (evil-next-buffer))
-  (when (string="shell" (buffer-name))
-    (kill-buffer "shell")
+  (when (string="*shell*" (buffer-name))
+    (kill-buffer "*shell*")
     (evil-next-buffer))
   (when (string="*helm M-x*" (buffer-name))
     (evil-next-buffer))
@@ -376,8 +380,8 @@
   (when (string="*Help*" (buffer-name))
     (kill-buffer "*Help*")
     (evil-prev-buffer))
-  (when (string="shell" (buffer-name))
-    (kill-buffer "shell")
+  (when (string="*shell*" (buffer-name))
+    (kill-buffer "*shell*")
     (evil-prev-buffer))
   (when (string="*helm M-x*" (buffer-name))
    (evil-prev-buffer))
@@ -625,6 +629,55 @@
 "Dictionary"
 (global-set-key (kbd "C-c d") 'define-word-at-point)
 (global-set-key (kbd "C-c D") 'define-word)
+
+"Javascript js2"
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+(require 'js2-refactor)
+(require 'xref-js2)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+"Javascript autocompletion TERN company"
+(require 'company-tern)
+
+(add-to-list 'company-backends 'company-tern)
+(add-hook 'js2-mode-hook (lambda ()
+                           (tern-mode)
+                           (company-mode)))
+                           
+;; Disable completion keybindings, as we use xref-js2 instead
+(define-key tern-mode-keymap (kbd "M-.") nil)
+(define-key tern-mode-keymap (kbd "M-,") nil)
+
+
+"Fold Collapse Function"
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(defun toggle-fold ()
+  (interactive)
+  (save-excursion)
+  (end-of-line)
+  (hs-toggle-hiding))
+(define-key evil-normal-state-map (kbd "<C-tab>") 'toggle-fold)
+(define-key evil-insert-state-map (kbd "<C-tab>") 'toggle-fold)
+(add-hook 'prog-mode-hook #'hideshowvis-enable)
+
+;; "Origami folding collapse function shrink fold"
+;; (require 'origami)
+;; (global-origami-mode 1)
+
+"Scrolling Stay point Mark center scroll"
 
 "No messages buffer"
 ;; Removes *messages* from the buffer.
