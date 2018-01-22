@@ -134,6 +134,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-global-modes (quote (not eshell-mode comint-mode erc-mode rcirc-mode)))
  '(custom-safe-themes
    (quote
     ("003a9aa9e4acb50001a006cfde61a6c3012d373c4763b48ceb9d523ceba66829" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
@@ -156,7 +157,7 @@
  '(org-agenda-files (quote ("/home/paul/Documents/journal/journal.org")))
  '(package-selected-packages
    (quote
-    (hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
+    (smooth-scroll bm eterm-256color hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -401,6 +402,9 @@
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
 (evil-ex-define-cmd "zsh" 'multi-term)
+"Disable Yasnippet for zsh"
+(add-hook 'term-mode-hook (lambda()
+			    (setq yas-dont-activate t)))
 
 "C-i init file"
 (defun find-init-file()
@@ -677,7 +681,18 @@
 ;; (require 'origami)
 ;; (global-origami-mode 1)
 
-"Scrolling Stay point Mark center scroll"
+"Scroll conservatively with line by line scrolling"
+
+"Bookmark current line bm"
+(require 'bm)
+"F1 overrides the help function" 
+(define-key evil-normal-state-map (kbd "<f1>") 'bm-toggle)
+(define-key evil-insert-state-map (kbd "<f1>") 'bm-toggle)
+(define-key evil-normal-state-map (kbd "<f2>") 'bm-previous)
+(define-key evil-insert-state-map (kbd "<f2>") 'bm-previous)
+(define-key evil-normal-state-map (kbd "<f3>") 'bm-next)
+(define-key evil-insert-state-map (kbd "<f3>") 'bm-next)
+
 
 "No messages buffer"
 ;; Removes *messages* from the buffer.
