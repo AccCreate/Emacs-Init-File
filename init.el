@@ -170,9 +170,17 @@
  '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :weight semi-bold :height 0.7))))
  '(org-level-5 ((t (:inherit variable-pitch :foreground "#53f2dc" :weight semi-bold :height 0.7)))))
 
+""
+"Allows listing of buffers (C-k) to kill buffer"
 "Vim CtrlP functionality"
 (require 'ido)
-'(ido-enable-flex-matching t)
+(setq ido-enable-flex-matching t)
+(ido-mode 1)
+(define-key evil-normal-state-map (kbd "C-b") 'ido-switch-buffer) 
+(define-key evil-insert-state-map (kbd "C-b") 'ido-switch-buffer) 
+;; "Vertical ido listing"
+;; (setq ido-separator "\n")
+
 
 "Darkorai Theme (Similar to Monokai Theme)"
 (load-theme 'darkokai t)
@@ -473,10 +481,10 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-"Eclim Java Eclipse"
-(require 'eclim)
-(global-eclim-mode)
-(require 'eclimd)
+;; "Eclim Java Eclipse"
+;; (require 'eclim)
+;; (global-eclim-mode)
+;; (require 'eclimd)
 
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
@@ -652,6 +660,13 @@
 (add-hook 'js2-mode-hook (lambda ()
   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+
+"Indent to 4 spaces in a tab"
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
 
 "Javascript autocompletion TERN company"
 (require 'company-tern)
