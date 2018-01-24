@@ -151,13 +151,13 @@
    (quote
     ((:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
      (:name "all mail" :query "*" :key
-	    [ignore]
-	    :sort-order newest-first))))
+            [ignore]
+            :sort-order newest-first))))
  '(notmuch-search-oldest-first nil)
  '(org-agenda-files (quote ("/home/paul/Documents/journal/journal.org")))
  '(package-selected-packages
    (quote
-    (smooth-scroll bm eterm-256color hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
+    (kurecolor smooth-scroll bm eterm-256color hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -473,6 +473,21 @@
     (insert (format-time-string "%c")))
 (define-key evil-insert-state-map (kbd "<f3>") 'insert-standard-date)
 (define-key evil-normal-state-map (kbd "<f3>") 'insert-standard-date)
+
+"Rainbow color paranthesis delimters brackets"
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+"Delete trailing whitespace spacebar"
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+"Store list of recent files"
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+"Automatic pair close completion"
+(add-hook 'prog-mode-hook #'electric-pair-mode)
+
 
 "Multiple Cursors"
 (require 'multiple-cursors)
