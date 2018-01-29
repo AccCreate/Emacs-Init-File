@@ -5,8 +5,8 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                      ("marmalade" . "http://marmalade-repo.org/packages/")
-                      ("melpa" . "http://melpa.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 "Toggle Full Screen on Startup"
@@ -14,7 +14,7 @@
 
 "Remove menu/tool bar"
 (tool-bar-mode -1)
-(menu-bar-mode -1) 
+(menu-bar-mode -1)
 
 "Evil Mode"
 (require 'evil)
@@ -27,9 +27,9 @@
 ;;(evilem-default-keybindings "SPC")
 ;;
 ;; ace jump mode major function
-;; 
+;;
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-;; 
+;;
 ;; enable a more powerful jump back function from ace jump mode
 ;;
 (autoload
@@ -57,12 +57,12 @@
 (defun linum-update-window-scale-fix (win)
   "fix linum for scaled text"
   (set-window-margins win
-		      (ceiling (* (if (boundp 'text-scale-mode-step)
-				      (expt text-scale-mode-step
-					    text-scale-mode-amount) 1)
-				  (if (car (window-margins))
-				      (car (window-margins)) 1)
-				  ))))
+                      (ceiling (* (if (boundp 'text-scale-mode-step)
+                                      (expt text-scale-mode-step
+                                            text-scale-mode-amount) 1)
+                                  (if (car (window-margins))
+                                      (car (window-margins)) 1)
+                                  ))))
 (advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
 
 
@@ -155,15 +155,35 @@
             :sort-order newest-first))))
  '(notmuch-search-oldest-first nil)
  '(org-agenda-files (quote ("/home/paul/Documents/journal/journal.org")))
+ '(org-latex-default-packages-alist
+   (quote
+    (("AUTO" "inputenc" t
+      ("pdflatex"))
+     ("T1" "fontenc" t
+      ("pdflatex"))
+     ("" "graphicx" t)
+     ("" "grffile" t)
+     ("" "longtable" nil)
+     ("" "wrapfig" nil)
+     ("" "rotating" nil)
+     ("normalem" "ulem" t)
+     ("" "amsmath" t)
+     ("" "textcomp" t)
+     ("" "amssymb" t)
+     ("" "capt-of" nil)
+     ("version=4" "mhchem" t)
+     ("" "hyperref" nil))))
  '(package-selected-packages
    (quote
-    (kurecolor smooth-scroll bm eterm-256color hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
+    (org-link-minor-mode kurecolor smooth-scroll bm eterm-256color hideshowvis origami company-tern xref-js2 xkcd wttrin use-package transpose-frame tabbar spaceline-all-the-icons smart-compile shell-toggle popwin pdf-tools org-journal org-evil org-capture-pop-frame org-ac ob-translate ob-ipython ob-browser neotree multi-term meghanada markdown-mode magit linum-relative js2-refactor jedi jabber ipython helm evil-tabs evil-easymotion evil-commentary elscreen-buffer-group ein dired-hacks-utils dired+ define-word darkokai-theme company-emacs-eclim airline-themes ace-jump-mode ac-ispell ac-emacs-eclim)))
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bm-fringe-persistent-face ((t (:background "yellow" :foreground "#242728"))))
+ '(bm-persistent-face ((t (:background "yellow" :foreground "#242728"))))
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#ffac4a" :weight semi-bold :height 0.7))))
  '(org-level-2 ((t (:inherit variable-pitch :foreground "#63de5d" :weight semi-bold :height 0.7))))
  '(org-level-3 ((t (:inherit variable-pitch :foreground "#06d8ff" :weight semi-bold :height 0.7))))
@@ -176,8 +196,8 @@
 (require 'ido)
 (setq ido-enable-flex-matching t)
 (ido-mode 1)
-(define-key evil-normal-state-map (kbd "C-b") 'ido-switch-buffer) 
-(define-key evil-insert-state-map (kbd "C-b") 'ido-switch-buffer) 
+(define-key evil-normal-state-map (kbd "C-b") 'ido-switch-buffer)
+(define-key evil-insert-state-map (kbd "C-b") 'ido-switch-buffer)
 ;; "Vertical ido listing"
 ;; (setq ido-separator "\n")
 
@@ -194,6 +214,8 @@
 
 "Org mode caputure quick notes note post it"
 (define-key global-map (kbd "C-c c") 'org-add-note)
+"Org mode allow alphabetical lists"
+(setq org-list-allow-alphabetical t)
 
 "Fly Check Syntax"
 (require 'flycheck)
@@ -269,7 +291,7 @@
 (setenv "PATH" (mapconcat 'identity exec-path ":"))
 
 "Case insensitive search"
-(setq case-fold-search t)  
+(setq case-fold-search t)
 (setq completion-ignore-case  t)
 
 "Vinegar like helm"
@@ -280,13 +302,13 @@
 
 "Org Journal"
 (setq org-agenda-files '(
-			 "/home/paul/Documents/journal/journal.org"
-			 "/home/paul/Documents/journal/diary.org"))
+                         "/home/paul/Documents/journal/journal.org"
+                         "/home/paul/Documents/journal/diary.org"))
 (setq org-agenda-custom-commands
       '(("a" "Simple agenda view"
          ((agenda "")
           ;; (alltodo "")
-	  ))))
+          ))))
 (evil-ex-define-cmd "agenda" 'org-agenda)
 (define-key evil-normal-state-map (kbd "C-a") 'org-agenda)
 (define-key evil-normal-state-map (kbd "C-A") 'org-agenda)
@@ -376,8 +398,8 @@
   ;;   (if (string="*Help*" (buffer-name))
   ;; 	(kill-buffer "*Help*"))
   ;;   (evil-prev-buffer)
-  ;;   )		   
-  
+  ;;   )
+
   (when (string= "*Messages*" (buffer-name))
     (kill-buffer "*Messages*")
     (evil-prev-buffer))
@@ -393,7 +415,7 @@
     (kill-buffer "*shell*")
     (evil-prev-buffer))
   (when (string="*helm M-x*" (buffer-name))
-   (evil-prev-buffer))
+    (evil-prev-buffer))
 
   )
 
@@ -412,7 +434,7 @@
 (evil-ex-define-cmd "zsh" 'multi-term)
 "Disable Yasnippet for zsh"
 (add-hook 'term-mode-hook (lambda()
-			    (setq yas-dont-activate t)))
+                            (setq yas-dont-activate t)))
 
 "C-i init file"
 (defun find-init-file()
@@ -467,10 +489,10 @@
 (define-key evil-normal-state-map (kbd "C-n") 'evil-window-new)
 
 "Vim Style: Insert date in insert mode"
-  (defun insert-standard-date ()
-    "Inserts standard date time string." 
-    (interactive)
-    (insert (format-time-string "%c")))
+(defun insert-standard-date ()
+  "Inserts standard date time string."
+  (interactive)
+  (insert (format-time-string "%c")))
 (define-key evil-insert-state-map (kbd "<f3>") 'insert-standard-date)
 (define-key evil-normal-state-map (kbd "<f3>") 'insert-standard-date)
 
@@ -520,11 +542,11 @@
 (evil-ex-define-cmd "email" 'notmuch)
 
 (defun eUpdate()
-      (interactive)
-      (eshell)
-      (insert "sh /home/paul/.emacs.d/emailEmacs.sh")
-      (eshell-send-input)
-      )
+  (interactive)
+  (eshell)
+  (insert "sh /home/paul/.emacs.d/emailEmacs.sh")
+  (eshell-send-input)
+  )
 (evil-ex-define-cmd "eUpdate" 'eUpdate)
 
 (load-file "~/.emacs.d/notmuch-setup.el")
@@ -538,13 +560,13 @@
 "smtpmail"
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
-   starttls-use-gnutls t
-   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-   smtpmail-auth-credentials
-     '(("smtp.gmail.com" 587 "dhseo1011@gmail.com" nil))
-   smtpmail-default-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-service 587)
+      starttls-use-gnutls t
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials
+      '(("smtp.gmail.com" 587 "dhseo1011@gmail.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
 (setq notmuch-address-selection-function
       (lambda (prompt collection initial-input)
         (completing-read prompt (cons initial-input collection) nil t nil 'notmuch-address-history)))
@@ -562,9 +584,9 @@
 
 "Org Mode Artist"
 (global-set-key (kbd "C-<f1>") (lambda()
-			       (interactive)
-			       (show-all)
-			       (artist-mode)))
+                                 (interactive)
+                                 (show-all)
+                                 (artist-mode)))
 
 "Autocomplete list"
 ;; (ac-config-default)
@@ -585,34 +607,34 @@
       '(company-pseudo-tooltip-unless-just-one-frontend
         company-preview-frontend
         company-echo-metadata-frontend))
-  (let ((map company-active-map))
-    (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
-    (define-key map (kbd "<backtab>") 'company-select-previous)
-    (define-key map (kbd "RET") 'nil))
+(let ((map company-active-map))
+  (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
+  (define-key map (kbd "<backtab>") 'company-select-previous)
+  (define-key map (kbd "RET") 'nil))
 
- (defun check-expansion ()
-    (save-excursion
-      (if (looking-at "\\_>") t
+(defun check-expansion ()
+  (save-excursion
+    (if (looking-at "\\_>") t
+      (backward-char 1)
+      (if (looking-at "\\.") t
         (backward-char 1)
-        (if (looking-at "\\.") t
-          (backward-char 1)
-          (if (looking-at "->") t nil)))))
+        (if (looking-at "->") t nil)))))
 
-  (defun do-yas-expand ()
-    (let ((yas/fallback-behavior 'return-nil))
-      (yas/expand)))
+(defun do-yas-expand ()
+  (let ((yas/fallback-behavior 'return-nil))
+    (yas/expand)))
 
-  (defun tab-indent-or-complete ()
-    (interactive)
-    (if (minibufferp)
-        (minibuffer-complete)
-      (if (or (not yas/minor-mode)
-              (null (do-yas-expand)))
-          (if (check-expansion)
-              (company-complete-common)
-            (indent-for-tab-command)))))
+(defun tab-indent-or-complete ()
+  (interactive)
+  (if (minibufferp)
+      (minibuffer-complete)
+    (if (or (not yas/minor-mode)
+            (null (do-yas-expand)))
+        (if (check-expansion)
+            (company-complete-common)
+          (indent-for-tab-command)))))
 
-  (global-set-key [tab] 'tab-indent-or-complete)
+(global-set-key [tab] 'tab-indent-or-complete)
 ;; (defun tab-indent-or-complete ()
 ;;     (interactive)
 ;;     (if (minibufferp)
@@ -636,19 +658,19 @@
 
 "Todo Org Mode more options"
 (setq org-todo-keywords
-  '((sequence "TODO"
-       "PROCESS"
-      ;; "DONE"
-      "DEFERRED"
-      )))
+      '((sequence "TODO"
+                  "PROCESS"
+                  ;; "DONE"
+                  "DEFERRED"
+                  )))
 
-  (setq org-todo-keyword-faces
-    '(
-      ("TODO" :background "red1" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
-       ("PROCESS" :background "orange" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
-      ("DEFERRED" :background "gold" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
-      ;; ("DONE" :background "forest green" :weight bold :box (:line-width 2 :style released-button))
-      ))
+(setq org-todo-keyword-faces
+      '(
+        ("TODO" :background "red1" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
+        ("PROCESS" :background "orange" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
+        ("DEFERRED" :background "gold" :foreground "black" :weight bold :box (:line-width 2 :style released-button))
+        ;; ("DONE" :background "forest green" :weight bold :box (:line-width 2 :style released-button))
+        ))
 
 "Tags for Org Mode"
 (define-key evil-insert-state-map (kbd "M-q") 'org-set-tags-command)
@@ -673,7 +695,7 @@
 (define-key js-mode-map (kbd "M-.") nil)
 
 (add-hook 'js2-mode-hook (lambda ()
-  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+                           (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 
 
@@ -690,7 +712,7 @@
 (add-hook 'js2-mode-hook (lambda ()
                            (tern-mode)
                            (company-mode)))
-                           
+
 ;; Disable completion keybindings, as we use xref-js2 instead
 (define-key tern-mode-keymap (kbd "M-.") nil)
 (define-key tern-mode-keymap (kbd "M-,") nil)
@@ -713,9 +735,64 @@
 
 "Scroll conservatively with line by line scrolling"
 
+"Store bm bookmark files"
+(use-package bm
+  :ensure t
+  :demand t
+
+  :init
+  ;; restore on load (even before you require bm)
+  (setq bm-restore-repository-on-load t)
+
+
+  :config
+  ;; Allow cross-buffer 'next'
+  (setq bm-cycle-all-buffers t)
+
+  ;; where to store persistant files
+  (setq bm-repository-file "~/.emacs.d/bm-repository")
+
+  ;; save bookmarks
+  (setq-default bm-buffer-persistence t)
+
+  ;; Loading the repository from file when on start up.
+  (add-hook' after-init-hook 'bm-repository-load)
+
+  ;; Restoring bookmarks when on file find.
+  (add-hook 'find-file-hooks 'bm-buffer-restore)
+
+  ;; Saving bookmarks
+  (add-hook 'kill-buffer-hook #'bm-buffer-save)
+
+  ;; Saving the repository to file when on exit.
+  ;; kill-buffer-hook is not called when Emacs is killed, so we
+  ;; must save all bookmarks first.
+  (add-hook 'kill-emacs-hook #'(lambda nil
+                                 (bm-buffer-save-all)
+                                 (bm-repository-save)))
+
+  ;; The `after-save-hook' is not necessary to use to achieve persistence,
+  ;; but it makes the bookmark data in repository more in sync with the file
+  ;; state.
+  (add-hook 'after-save-hook #'bm-buffer-save)
+
+  ;; Restoring bookmarks
+  (add-hook 'find-file-hooks   #'bm-buffer-restore)
+  (add-hook 'after-revert-hook #'bm-buffer-restore)
+
+  ;; The `after-revert-hook' is not necessary to use to achieve persistence,
+  ;; but it makes the bookmark data in repository more in sync with the file
+  ;; state. This hook might cause trouble when using packages
+  ;; that automatically reverts the buffer (like vc after a check-in).
+  ;; This can easily be avoided if the package provides a hook that is
+  ;; called before the buffer is reverted (like `vc-before-checkin-hook').
+  ;; Then new bookmarks can be saved before the buffer is reverted.
+  ;; Make sure bookmarks is saved before check-in (and revert-buffer)
+  (add-hook 'vc-before-checkin-hook #'bm-buffer-save)
+  )
 "Bookmark current line bm"
 (require 'bm)
-"F1 overrides the help function" 
+"F1 overrides the help function"
 (define-key evil-normal-state-map (kbd "<f1>") 'bm-toggle)
 (define-key evil-insert-state-map (kbd "<f1>") 'bm-toggle)
 (define-key evil-normal-state-map (kbd "<f2>") 'bm-previous)
@@ -724,6 +801,9 @@
 (define-key evil-insert-state-map (kbd "<f3>") 'bm-next)
 
 
+;; "Org mode Chemistry mhchem"
+;; (add-to-list 'org-latex-packages-alist '("version=4" "mhchem" t))
+
 "No messages buffer"
 ;; Removes *messages* from the buffer.
 (setq-default message-log-max nil)
@@ -731,10 +811,10 @@
 (kill-buffer "*Shell Command Output*")
 ;; Removes *Completions* from buffer after you've opened a file.
 (add-hook 'minibuffer-exit-hook
-      '(lambda ()
-         (let ((buffer "*Completions*"))
-           (and (get-buffer buffer)
-                (kill-buffer buffer)))))
+          '(lambda ()
+             (let ((buffer "*Completions*"))
+               (and (get-buffer buffer)
+                    (kill-buffer buffer)))))
 
 ;; Don't show *Buffer list* when opening multiple files at the same time.
 (setq inhibit-startup-buffer-menu t)
@@ -746,13 +826,13 @@
 "No Splash Screen Start"
 (setq inhibit-splash-screen t)
 ;;(switch-to-buffer "**")
-(find-file "/home/paul/Documents/journal/journal.org") 
+(find-file "/home/paul/Documents/journal/journal.org")
 (delete-other-windows)
 ;; Makes *scratch* empty.
 ;; (setq initial-scratch-message "")
 
 ;;Removes *scratch* from buffer after the mode has been set.
 (defun remove-scratch-buffer ()
- (if (get-buffer "*scratch*")
-     (kill-buffer "*scratch*")))
+  (if (get-buffer "*scratch*")
+      (kill-buffer "*scratch*")))
 (remove-scratch-buffer)
