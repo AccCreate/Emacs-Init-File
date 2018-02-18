@@ -184,11 +184,11 @@
  ;; If there is more than one, they won't work right.
  '(bm-fringe-persistent-face ((t (:background "yellow" :foreground "#242728"))))
  '(bm-persistent-face ((t (:background "yellow" :foreground "#242728"))))
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#ffac4a" :weight semi-bold :height 0.7))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#63de5d" :weight semi-bold :height 0.7))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#06d8ff" :weight semi-bold :height 0.7))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :weight semi-bold :height 0.7))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#53f2dc" :weight semi-bold :height 0.7)))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#ffac4a" :weight semi-bold :height 0.75))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#63de5d" :weight semi-bold :height 0.75))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#06d8ff" :weight semi-bold :height 0.75))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :weight semi-bold :height 0.75))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#53f2dc" :weight semi-bold :height 0.75)))))
 
 ""
 "Allows listing of buffers (C-k) to kill buffer"
